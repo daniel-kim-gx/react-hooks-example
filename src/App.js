@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Router } from "@reach/router";
+import { UseStateComponent } from "./components/UseStateComponent";
+import { UseEffectComponent } from "./components/UseEffectComponent";
+import { ComplexComponent } from "./components/ComplexComponent";
+import { Header } from "./components/Header";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Router>
+        <UseStateComponent path="/data" />
+        <UseEffectComponent path="/behavior" />
+        <ComplexComponent path="/complex" />
+      </Router>
     </div>
   );
 }
