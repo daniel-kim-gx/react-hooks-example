@@ -1,4 +1,6 @@
 import { useEffect, useCallback, useRef, useState } from "react";
+import { css } from "@emotion/react";
+
 export function UseStateComponent() {
   const stateRef = useRef(0);
   const [count, setCount] = useState(0);
@@ -20,7 +22,11 @@ export function UseStateComponent() {
   console.log("[UseStateComponent] component called.");
 
   return (
-    <div>
+    <div
+      css={css`
+        background: red;
+      `}
+    >
       <pre>
         <code>stateRref.current : {stateRef.current}</code>
       </pre>
