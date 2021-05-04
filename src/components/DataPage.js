@@ -1,7 +1,30 @@
 import { useEffect, useCallback, useRef, useState } from "react";
+import { Router, Link } from "@reach/router";
 import { css } from "@emotion/react";
 
 export function DataPage() {
+  return (
+    <div>
+      <div
+        css={css`
+          & > a {
+            margin-left: 12px;
+          }
+        `}
+      >
+        <Link to="./">one</Link>
+        <Link to="./2">two</Link>
+      </div>
+
+      <Router>
+        <Example1 default path="/" />
+        <Example2 path="/2" />
+      </Router>
+    </div>
+  );
+}
+
+function Example1() {
   const stateRef = useRef(0);
   const [count, setCount] = useState(0);
 
@@ -22,11 +45,9 @@ export function DataPage() {
   console.log("[UseStateComponent] component called.");
 
   return (
-    <div
-      css={css`
-        background: red;
-      `}
-    >
+    <div>
+      <h2>[Example 1] useState vs useRef</h2>
+
       <pre>
         <code>stateRref.current : {stateRef.current}</code>
       </pre>
@@ -39,4 +60,8 @@ export function DataPage() {
       <button onClick={handleStateClick}>Update count</button>
     </div>
   );
+}
+
+function Example2() {
+  return <div>example 2</div>;
 }

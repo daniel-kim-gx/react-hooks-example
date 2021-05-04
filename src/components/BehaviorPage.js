@@ -1,8 +1,35 @@
 import { useState, useLayoutEffect, useEffect } from "react";
+import { Router, Link } from "@reach/router";
 import { css } from "@emotion/react";
 
+const generateRandomValue = () =>
+  Math.floor(Math.pow(10, 10) + Math.random() * Math.pow(10, 10));
+
 export function BehaviorPage() {
-  const [value, setValue] = useState(0);
+  return (
+    <div>
+      <div
+        css={css`
+          & > a {
+            margin-left: 12px;
+          }
+        `}
+      >
+        <Link to="./">one</Link>
+        <Link to="./2">two</Link>
+      </div>
+
+      <Router>
+        <Example1 default path="/" />
+        <Example2 path="/2" />
+      </Router>
+    </div>
+  );
+}
+
+function Example1() {
+  const [value1, setValue1] = useState(0); // useEffect
+  const [value2, setValue2] = useState(0); // useLayoutEffect
 
   useLayoutEffect(() => {
     console.log("[UseEffectComponent] useLayoutEffect 1 called..");
@@ -16,35 +43,66 @@ export function BehaviorPage() {
     console.log("[UseEffectComponent] re-rendering... ");
   });
 
-  // useEffect(() => {
-  //   if (value === 0) {
-  //     setValue(10 + Math.random() * 200);
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if (value1 === 0) {
+      setValue1(() => generateRandomValue());
+      setValue1(() => generateRandomValue());
+    }
+  }, [value1]);
 
   useLayoutEffect(() => {
-    if (value === 0) {
-      setValue(10 + Math.random() * 200);
+    if (value2 === 0) {
+      setValue2(() => generateRandomValue());
+      setValue2(() => generateRandomValue());
     }
-  }, [value]);
-
-  console.log("[UseEffectComponent] rendering..");
+  }, [value2]);
 
   return (
     <div>
-      <h1>UseEffectComponent</h1>
+      <h2>[Example 1] useEffect vs useLayoutEffect</h2>
       <div>
-        <button onClick={() => setValue(0)}>update value </button>
+        <button onClick={() => setValue1(0)}>update value 1</button>
       </div>
 
-      <span
+      <div>
+        <button onClick={() => setValue2(0)}>update value 2</button>
+      </div>
+
+      <div
         css={css`
           background: blue;
           color: white;
+          font-size: 4rem;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
         `}
       >
-        value: {value}
-      </span>
+        value1:
+        <span>{value1}</span>
+      </div>
+
+      <div
+        css={css`
+          background: blue;
+          color: white;
+          font-size: 4rem;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        `}
+      >
+        value2:
+        <span>{value2}</span>
+      </div>
+    </div>
+  );
+}
+
+function Example2() {
+  return (
+    <div>
+      <h2>[Example 1] example 1</h2>
     </div>
   );
 }
