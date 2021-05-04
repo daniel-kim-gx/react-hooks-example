@@ -5,6 +5,7 @@ import { UseEffectComponent } from "./components/UseEffectComponent";
 import { ComplexComponent } from "./components/ComplexComponent";
 import { HomeComponent } from "./components/HomeComponent";
 import { Header } from "./components/Header";
+import "@fontsource/roboto-mono";
 
 function App() {
   return (
