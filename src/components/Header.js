@@ -32,7 +32,9 @@ export function Header() {
     >
       <StyledLink to="/data">data</StyledLink>
       <StyledLink to="/behavior">behavior</StyledLink>
-      <StyledLink to="/complex">complex</StyledLink>
+      <StyledLink to="/complex-data">complex</StyledLink>
+      <StyledLink to="/optimize">optimization</StyledLink>
+      <StyledLink to="/async">async</StyledLink>
     </header>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useRef, useState } from "react";
 import { css } from "@emotion/react";
 
-export function UseStateComponent() {
+export function DataPage() {
   const stateRef = useRef(0);
   const [count, setCount] = useState(0);
 

@@ -1,7 +1,7 @@
-import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import { css } from "@emotion/react";
 
-export function UseEffectComponent() {
+export function BehaviorPage() {
   const [value, setValue] = useState(0);
 
   useLayoutEffect(() => {
