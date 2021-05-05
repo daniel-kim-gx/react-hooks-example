@@ -16,15 +16,22 @@ const createAddress = (id) => ({
   timeZone: faker.address.timeZone(),
 });
 
-const users = Array.from({ length: 10 }).map(createUser);
+let users = Array.from({ length: 10 }).map(createUser);
 
-const addresses = users.map(({ id }) => createAddress(id));
+let addresses = users.map(({ id }) => createAddress(id));
 
 createServer({
   environment: "development",
 
   routes() {
     this.get("/api/users", () => users);
+
+    this.delete("/api/users", (schema, request) => {
+      const ids = JSON.parse(request.requestBody).ids;
+      users = users.filter((user) => !ids.includes(user.id));
+      return new Response(200);
+    });
+
     this.get("/api/users/:userName", (schema, request) => {
       const userName = request.params.userName;
       const foundUser = users.find((user) => user.userName === userName);
@@ -48,7 +55,7 @@ createServer({
     });
 
     this.get("/api/throw-error", () => {
-      return new Response(404, {}, { error: "THrow new error." });
+      return new Response(404, {}, { error: "Throw new error." });
     });
   },
 });

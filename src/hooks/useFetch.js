@@ -48,5 +48,5 @@ export function useFetch(urlGenerator, deps = [], { control = false } = {}) {
     setRequested(true);
   }, []);
 
-  return [result, error, clear, request];
+  return { result, error, request, reload: clear };
 }

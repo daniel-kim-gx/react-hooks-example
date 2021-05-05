@@ -54,15 +54,20 @@ function Example2() {
 
   const [users] = useFetch(() => `/api/users`, []);
 
-  const [user, userFetchError, userClear, request] = useFetch(
-    (userName) => `/api/users/${userName}`,
-    [userName],
-    {
-      control: true,
-    }
-  );
+  const {
+    result: user,
+    error: userFetchError,
+    reload: userReload,
+    request,
+  } = useFetch((userName) => `/api/users/${userName}`, [userName], {
+    control: true,
+  });
 
-  const [address, addressFetchError, addressClear] = useFetch(
+  const {
+    result: address,
+    error: addressFetchError,
+    reload: addressReload,
+  } = useFetch(
     // (user) => `/api/throw-error`,
     (user) => `/api/address/${user.id}`,
     [user]
@@ -75,8 +80,8 @@ function Example2() {
 
     if (key !== "Enter") return;
 
-    userClear();
-    addressClear();
+    userReload();
+    addressReload();
     request();
   };
 

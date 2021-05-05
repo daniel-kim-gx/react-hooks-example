@@ -1,6 +1,9 @@
 import { useEffect, useCallback, useRef, useState } from "react";
 import { Router, Link } from "@reach/router";
 import { css } from "@emotion/react";
+import { UserTable } from "../components/UserTable";
+import { useFetch } from "../hooks/useFetch";
+import axios from "axios";
 
 export function DataPage() {
   return (
@@ -42,8 +45,6 @@ function Example1() {
     console.log("[UseStateComponent] rerendering...");
   });
 
-  console.log("[UseStateComponent] component called.");
-
   return (
     <div>
       <h2>[Example 1] useState vs useRef</h2>
@@ -63,5 +64,21 @@ function Example1() {
 }
 
 function Example2() {
-  return <div>example 2</div>;
+  const { result: users, reload } = useFetch(() => "/api/users");
+
+  const deleteUsers = (ids) => {
+    axios
+      .delete("/api/users", { data: { ids } })
+      .then(() => console.log("success"))
+      .catch(console.log)
+      .finally(reload);
+  };
+
+  return (
+    <div>
+      <h2>[Example 2] Todo table</h2>
+
+      <div>{users && <UserTable users={users} onApply={deleteUsers} />}</div>
+    </div>
+  );
 }

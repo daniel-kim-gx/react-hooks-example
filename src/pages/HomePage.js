@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export function HomeComponent() {
+export function HomePage() {
   return (
     <div
       css={css`
