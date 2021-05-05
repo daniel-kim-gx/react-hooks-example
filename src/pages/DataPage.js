@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useState } from "react";
+import { useMemo, useEffect, useCallback, useRef, useState } from "react";
 import { Router, Link } from "@reach/router";
 import { css } from "@emotion/react";
 import { UserTable } from "../components/UserTable";
@@ -77,7 +77,6 @@ function Example2() {
   return (
     <div>
       <h2>[Example 2] Todo table</h2>
-
       <div>{users && <UserTable users={users} onApply={deleteUsers} />}</div>
     </div>
   );
