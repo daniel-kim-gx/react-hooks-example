@@ -41,7 +41,7 @@ function Example1() {
 
   return (
     <div>
-      <h2>[Example 1] example 1</h2>
+      <h2>[Example 1] Counter</h2>
       <div>
         mounted : {mounted}
         <button onClick={() => setMounted((b) => !b)}>Toggle mount</button>
