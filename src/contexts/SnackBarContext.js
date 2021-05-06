@@ -102,7 +102,7 @@ const SnackBarPaper = styled.li`
   border-radius: 8px;
 
   width: 240px;
-  height: 80px;
+  height: 40px;
 
   display: flex;
   justify-content: center;

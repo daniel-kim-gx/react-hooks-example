@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Router, Link } from "@reach/router";
+import { MultipleCounters } from "../components/MultipleCounters";
 
 export function OptimizePage() {
   return (
@@ -27,7 +28,9 @@ function Example1() {
   return (
     <div>
       <h2>[Example 1] example one</h2>
-      <div>example one.</div>
+      <div>
+        <MultipleCounters />
+      </div>
     </div>
   );
 }
