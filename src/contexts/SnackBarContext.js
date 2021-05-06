@@ -16,15 +16,17 @@ function useSnackBarInternal() {
   const [snackBarList, setSnackBarList] = useState([]);
   const timerIdsRef = useRef([]);
 
-  const toast = useCallback((text) => {
+  const toast = useCallback((text, options = {}) => {
     const id = nanoid();
-    setSnackBarList((list) => [...list, { id, text }]);
+    const { variant = "primary", onClose = () => {} } = options;
+    setSnackBarList((list) => [...list, { id, text, variant, onClose }]);
 
     const timerId = setTimeout(() => {
       const ids = timerIdsRef.current;
       const removeIndex = ids.findIndex((snackBarObj) => snackBarObj.id === id);
       setSnackBarList((list) => list.filter((obj) => obj.id !== id));
       timerIdsRef.current = timerIdsRef.current.splice(removeIndex, 1);
+      onClose();
     }, 2000);
 
     timerIdsRef.current.push(timerId);
@@ -56,8 +58,10 @@ function SnackBar({ snackBarList }) {
   return snackBarContainerRef.current
     ? createPortal(
         <SnackBarContainer>
-          {snackBarList.map(({ id, text }) => (
-            <SnackBarPaper key={id}>{text}</SnackBarPaper>
+          {snackBarList.map(({ id, text, variant }) => (
+            <SnackBarPaper variant={variant} key={id}>
+              {text}
+            </SnackBarPaper>
           ))}
         </SnackBarContainer>,
         snackBarContainerRef.current
@@ -96,13 +100,27 @@ const SnackBarContainer = styled.div`
   }
 `;
 
+const variants = {
+  primary: {
+    backgroundColor: "black",
+    fontColor: "white",
+  },
+
+  danger: {
+    backgroundColor: "red",
+    fontColor: "white",
+  },
+};
+
 const SnackBarPaper = styled.li`
-  background: black;
+  background: ${({ variant }) => variants[variant].backgroundColor};
+  color: ${({ variant }) => variants[variant].backgroundColor};
   color: white;
   border-radius: 8px;
 
-  width: 240px;
-  height: 40px;
+  min-width: 240px;
+  min-height: 40px;
+  padding: 12px;
 
   display: flex;
   justify-content: center;

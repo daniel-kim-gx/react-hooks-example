@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { Router, Link } from "@reach/router";
 import { useFetch } from "../hooks/useFetch";
 import axios from "axios";
+import { useSnackBar } from "../hooks/useSnackBar";
 
 export function AsyncPage() {
   return (
@@ -42,7 +43,7 @@ function Example1() {
 
       <ul>
         {users.map((user) => (
-          <li>{JSON.stringify(user)}</li>
+          <li key={user.id}>{JSON.stringify(user)}</li>
         ))}
       </ul>
     </div>
@@ -50,15 +51,17 @@ function Example1() {
 }
 
 function Example2() {
+  const toast = useSnackBar();
   const [userName, setUserName] = useState("");
-
-  const [users] = useFetch(() => `/api/users`, []);
+  const { result: users } = useFetch(() => `/api/users`, []);
+  const fetchUserNameRef = useRef("");
 
   const {
     result: user,
     error: userFetchError,
     reload: userReload,
     request,
+    fetching: userFetching,
   } = useFetch((userName) => `/api/users/${userName}`, [userName], {
     control: true,
   });
@@ -67,11 +70,7 @@ function Example2() {
     result: address,
     error: addressFetchError,
     reload: addressReload,
-  } = useFetch(
-    // (user) => `/api/throw-error`,
-    (user) => `/api/address/${user.id}`,
-    [user]
-  );
+  } = useFetch((user) => `/api/address/${user.id}`, [user]);
 
   const handleChange = (e) => setUserName(e.target.value);
 
@@ -80,10 +79,33 @@ function Example2() {
 
     if (key !== "Enter") return;
 
+    fetchUserNameRef.current = userName;
     userReload();
     addressReload();
     request();
   };
+
+  useEffect(() => {
+    if (!userFetchError) return;
+
+    toast(`Username ${fetchUserNameRef.current} fetch failed.`, {
+      variant: "danger",
+    });
+  }, [userFetchError, toast]);
+
+  useEffect(() => {
+    if (!addressFetchError) return;
+
+    toast(
+      <span>
+        Address related to username <strong>{fetchUserNameRef.current}</strong>{" "}
+        fetch failed.
+      </span>,
+      {
+        variant: "danger",
+      }
+    );
+  }, [addressFetchError, toast, userName]);
 
   return (
     <div>
@@ -94,37 +116,43 @@ function Example2() {
         value={userName}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        disabled={userFetching}
+        placeholder="Search some user..."
       />
 
-      <ul>
-        {users &&
-          users.map((user) => (
-            <li>
-              <p>username : {user.userName}</p>
-              <p>id : {user.id}</p>
-            </li>
-          ))}
-      </ul>
-
       {address && (
-        <div>
-          <span>address:</span>
-          {JSON.stringify(address)}
-        </div>
+        <Address address={address} userName={fetchUserNameRef.current} />
       )}
 
-      {userFetchError && (
-        <div>
-          userFetchError occured : {JSON.stringify(userFetchError.response)}
-        </div>
+      {!userName && (
+        <ul
+          css={css`
+            list-style: none;
+            opacity: 0.3;
+          `}
+        >
+          {users &&
+            users.map((user) => (
+              <li key={user.id}>
+                <p>username : {user.userName}</p>
+                <p>id : {user.id}</p>
+              </li>
+            ))}
+        </ul>
       )}
+    </div>
+  );
+}
 
-      {addressFetchError && (
-        <div>
-          addressFetchError occured :{" "}
-          {JSON.stringify(addressFetchError.response)}
-        </div>
-      )}
+function Address({ address, userName }) {
+  const { city, country, streetName, timeZone } = address;
+  return (
+    <div>
+      {userName} lives in...
+      <div>city: {city}</div>
+      <div>country : {country}</div>
+      <div>streetName: {streetName}</div>
+      <div>timeZone: {timeZone}</div>
     </div>
   );
 }

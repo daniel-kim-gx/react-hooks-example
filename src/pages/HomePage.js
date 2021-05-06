@@ -4,10 +4,16 @@ export function HomePage() {
   return (
     <div
       css={css`
-        background: blue;
+        font-size: 4rem;
+        text-align: left;
+        padding: 5%;
       `}
     >
-      Home.
+      Welcome to
+      <br />
+      <strong>react hooks example</strong>
+      <br />
+      by <em>Dan Kim</em>
     </div>
   );
 }

@@ -47,8 +47,8 @@ createServer({
       const id = request.params.id;
       const foundUser = users.find((user) => user.id === id);
 
-      if (!foundUser) {
-        return new Response(404, {}, { error: "User not found." });
+      if (foundUser.id === users[0].id || !foundUser) {
+        return new Response(404, {}, { error: "Address not found." });
       }
 
       return addresses.find((address) => address.id === id);

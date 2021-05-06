@@ -5,11 +5,21 @@ export function useFetch(urlGenerator, deps = [], { control = false } = {}) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [fetching, setFetching] = useState(false);
-  const [requested, setRequested] = useState(false);
+  const [requested, setRequested] = useState(() => !control);
+
+  const clear = useCallback(() => {
+    setResult(null);
+    setError(null);
+  }, []);
+
+  const request = useCallback(() => {
+    clear();
+    setRequested(true);
+  }, [clear]);
 
   useEffect(() => {
     if (
-      (control && !requested) ||
+      !requested ||
       fetching ||
       !!error ||
       !!result ||
@@ -19,6 +29,13 @@ export function useFetch(urlGenerator, deps = [], { control = false } = {}) {
     }
 
     setFetching(true);
+
+    const obj = {
+      requested,
+      fetching,
+      error,
+      result,
+    };
 
     axios
       .get(urlGenerator(...deps))
@@ -36,17 +53,9 @@ export function useFetch(urlGenerator, deps = [], { control = false } = {}) {
     error,
     urlGenerator,
     deps,
+    clear,
     ...deps,
   ]);
 
-  const clear = useCallback(() => {
-    setResult(null);
-    setError(null);
-  }, []);
-
-  const request = useCallback(() => {
-    setRequested(true);
-  }, []);
-
-  return { result, error, request, reload: clear };
+  return { result, error, request, reload: request, fetching, clear };
 }
