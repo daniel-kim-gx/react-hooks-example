@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useCallback, useRef, useState } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import { Router, Link } from "@reach/router";
 import { css } from "@emotion/react";
 import { UserTable } from "../components/UserTable";

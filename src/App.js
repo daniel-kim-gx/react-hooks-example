@@ -9,20 +9,23 @@ import { AsyncPage } from "./pages/AsyncPage";
 
 import { Header } from "./components/Header";
 import "@fontsource/roboto-mono";
+import { SnackBarContextProvider } from "./contexts/SnackBarContext";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Router>
-        <HomePage path="/" />
-        <DataPage path="/data/*" />
-        <BehaviorPage path="/behavior/*" />
-        <ComplexPage path="/complex-data/*" />
-        <OptimizePage path="/optimize/*" />
-        <AsyncPage path="/async/*" />
-      </Router>
-    </div>
+    <SnackBarContextProvider>
+      <div className="App">
+        <Header />
+        <Router>
+          <HomePage path="/" />
+          <DataPage path="/data/*" />
+          <BehaviorPage path="/behavior/*" />
+          <ComplexPage path="/complex-data/*" />
+          <OptimizePage path="/optimize/*" />
+          <AsyncPage path="/async/*" />
+        </Router>
+      </div>
+    </SnackBarContextProvider>
   );
 }
 
