@@ -30,6 +30,7 @@ export function Header() {
         flex-direction: column;
       `}
     >
+      <StyledLink to="/playground">playground</StyledLink>
       <StyledLink to="/data">data</StyledLink>
       <StyledLink to="/behavior">behavior</StyledLink>
       <StyledLink to="/complex-data">complex</StyledLink>

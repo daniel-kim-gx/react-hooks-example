@@ -14,12 +14,10 @@ export function ComplexPage() {
         `}
       >
         <Link to="./">one</Link>
-        <Link to="./2">two</Link>
       </div>
 
       <Router>
         <Example1 default path="/" />
-        <Example2 path="/2" />
       </Router>
     </div>
   );
@@ -36,7 +34,7 @@ function Example1() {
 
   return (
     <div>
-      <h2>[Example 1] example 1</h2>
+      <h2>[Example 1] SnackBar Context</h2>
 
       <label htmlFor="toast-text">
         Toast text
@@ -50,14 +48,6 @@ function Example1() {
       </label>
 
       <button onClick={handleClick}>toast</button>
-    </div>
-  );
-}
-
-function Example2() {
-  return (
-    <div>
-      <h2>[Example 1] example 1</h2>
     </div>
   );
 }

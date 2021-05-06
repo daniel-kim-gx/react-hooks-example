@@ -31,17 +31,9 @@ export function BehaviorPage() {
 function Example1() {
   const [mounted, setMounted] = useState(true);
 
-  useEffect(() => {
-    // mount시 api를 콜해서 timer를 동기화 한다던가, 어떤 외부 state를 바꾸는 등의 effect를 넣는다.
-    //
-    // subscription하고 해제하기 등의 fake api.
-    // logging 넣기. 여러개의 effect hook을 넣어서 데이터를 만든다.
-    console.log("Do something that is clearly an EFFECT");
-  });
-
   return (
     <div>
-      <h2>[Example 1] Counter</h2>
+      <h2>[Example 1] Timer</h2>
       <div>
         mounted : {mounted}
         <button onClick={() => setMounted((b) => !b)}>Toggle mount</button>

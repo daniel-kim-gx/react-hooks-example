@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { UserTable } from "../components/UserTable";
 import { useFetch } from "../hooks/useFetch";
 import axios from "axios";
+import { useSnackBar } from "../hooks/useSnackBar";
 
 export function DataPage() {
   return (
@@ -28,21 +29,20 @@ export function DataPage() {
 }
 
 function Example1() {
+  const toast = useSnackBar();
   const stateRef = useRef(0);
   const [count, setCount] = useState(0);
 
   const handleRefClick = useCallback(() => {
-    console.log("[handleRefClick] current ref value : ", stateRef.current);
     stateRef.current = stateRef.current + 1;
   }, []);
 
   const handleStateClick = useCallback(() => {
-    console.log("[handleStateClick] current count state : ", count);
     setCount((currentCount) => currentCount + 1);
-  }, [count]);
+  }, []);
 
   useEffect(() => {
-    console.log("[UseStateComponent] rerendering...");
+    toast("Re-rendering...");
   });
 
   return (
@@ -76,7 +76,7 @@ function Example2() {
 
   return (
     <div>
-      <h2>[Example 2] Todo table</h2>
+      <h2>[Example 2] User table</h2>
       <div>{users && <UserTable users={users} onApply={deleteUsers} />}</div>
     </div>
   );

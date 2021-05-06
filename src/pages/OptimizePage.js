@@ -13,12 +13,10 @@ export function OptimizePage() {
         `}
       >
         <Link to="./">one</Link>
-        <Link to="./2">two</Link>
       </div>
 
       <Router>
         <Example1 default path="/" />
-        <Example2 path="/2" />
       </Router>
     </div>
   );
@@ -27,19 +25,10 @@ export function OptimizePage() {
 function Example1() {
   return (
     <div>
-      <h2>[Example 1] example one</h2>
+      <h2>[Example 1] Multiple Counters</h2>
       <div>
         <MultipleCounters />
       </div>
-    </div>
-  );
-}
-
-function Example2() {
-  return (
-    <div>
-      <h2>[Example 2] example two</h2>
-      <div>example two.</div>
     </div>
   );
 }
