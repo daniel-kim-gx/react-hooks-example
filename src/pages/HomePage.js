@@ -1,12 +1,13 @@
 import { css } from "@emotion/react";
+import { PageLayout } from "../components/PageLayout";
 
-export function HomePage() {
+export function HomePage(props) {
+  console.log("page props : ", props);
   return (
-    <div
+    <PageLayout
       css={css`
         font-size: 4rem;
         text-align: left;
-        padding: 5%;
       `}
     >
       Welcome to
@@ -14,6 +15,6 @@ export function HomePage() {
       <strong>react hooks example</strong>
       <br />
       by <em>Dan Kim</em>
-    </div>
+    </PageLayout>
   );
 }

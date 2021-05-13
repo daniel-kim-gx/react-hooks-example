@@ -1,7 +1,9 @@
+import { PageLayout } from "../components/PageLayout";
+
 export function PlaygroundPage() {
   return (
-    <div>
+    <PageLayout>
       <h2>PLAYGROUND</h2>
-    </div>
+    </PageLayout>
   );
 }

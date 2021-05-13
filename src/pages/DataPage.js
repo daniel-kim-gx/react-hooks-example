@@ -5,10 +5,11 @@ import { UserTable } from "../components/UserTable";
 import { useFetch } from "../hooks/useFetch";
 import axios from "axios";
 import { useSnackBar } from "../hooks/useSnackBar";
+import { PageLayout } from "../components/PageLayout";
 
 export function DataPage() {
   return (
-    <div>
+    <PageLayout>
       <div
         css={css`
           & > a {
@@ -24,7 +25,7 @@ export function DataPage() {
         <Example1 default path="/" />
         <Example2 path="/2" />
       </Router>
-    </div>
+    </PageLayout>
   );
 }
 

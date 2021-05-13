@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 import { Router, Link } from "@reach/router";
 import { MultipleCounters } from "../components/MultipleCounters";
+import { PageLayout } from "../components/PageLayout";
 
 export function OptimizePage() {
   return (
-    <div>
+    <PageLayout>
       <div
         css={css`
           & > a {
@@ -18,7 +19,7 @@ export function OptimizePage() {
       <Router>
         <Example1 default path="/" />
       </Router>
-    </div>
+    </PageLayout>
   );
 }
 

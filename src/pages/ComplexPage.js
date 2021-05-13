@@ -2,10 +2,11 @@ import { useState } from "react";
 import { css } from "@emotion/react";
 import { Router, Link } from "@reach/router";
 import { useSnackBar } from "../hooks/useSnackBar";
+import { PageLayout } from "../components/PageLayout";
 
 export function ComplexPage() {
   return (
-    <div>
+    <PageLayout>
       <div
         css={css`
           & > a {
@@ -19,7 +20,7 @@ export function ComplexPage() {
       <Router>
         <Example1 default path="/" />
       </Router>
-    </div>
+    </PageLayout>
   );
 }
 
@@ -30,6 +31,12 @@ function Example1() {
   const handleClick = () => {
     toast(toastText);
     setToastText("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
   };
 
   return (
@@ -44,6 +51,7 @@ function Example1() {
           name="toast-text"
           value={toastText}
           onChange={(e) => setToastText(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
       </label>
 

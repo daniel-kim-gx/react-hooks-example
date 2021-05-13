@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import { Router } from "@reach/router";
 import { DataPage } from "./pages/DataPage";
@@ -7,17 +8,16 @@ import { HomePage } from "./pages/HomePage";
 import { OptimizePage } from "./pages/OptimizePage";
 import { AsyncPage } from "./pages/AsyncPage";
 
-import { Header } from "./components/Header";
 import "@fontsource/roboto-mono";
 import { SnackBarContextProvider } from "./contexts/SnackBarContext";
 import { PlaygroundPage } from "./pages/PlaygroundPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { GlobalStyle } from "./styles";
 
 function App() {
   return (
     <SnackBarContextProvider>
-      <div className="App">
-        <Header />
+      <>
         <Router>
           <HomePage path="/" />
           <DataPage path="/data/*" />
@@ -28,7 +28,8 @@ function App() {
           <PlaygroundPage path="/playground" />
           <NotFoundPage default />
         </Router>
-      </div>
+        <GlobalStyle />
+      </>
     </SnackBarContextProvider>
   );
 }

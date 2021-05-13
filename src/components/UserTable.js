@@ -114,6 +114,40 @@ export function UserTable({ users, onApply }) {
         />
       </div>
 
+      <div>
+        <button onClick={resetUsers}>reset</button>
+        <button
+          disabled={users.length === state.tableItems.length}
+          onClick={applyTable}
+        >
+          Apply
+        </button>
+
+        <div>
+          <label htmlFor="from">From</label>
+          <input
+            id="from"
+            type="text"
+            name="from"
+            value={from}
+            onChange={(e) => setFrom(e.target.value)}
+            placeholder="From index"
+          />
+          <label htmlFor="to">To</label>
+          <input
+            id="to"
+            type="text"
+            name="to"
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
+            placeholder="To index"
+          />
+          <button onClick={() => moveUser(Number(from), Number(to))}>
+            Move
+          </button>
+        </div>
+      </div>
+
       <table
         css={css`
           width: 100%;
@@ -157,40 +191,6 @@ export function UserTable({ users, onApply }) {
           ))}
         </tbody>
       </table>
-
-      <div>
-        <button onClick={resetUsers}>reset</button>
-        <button
-          disabled={users.length === state.tableItems.length}
-          onClick={applyTable}
-        >
-          Apply
-        </button>
-
-        <div>
-          <label htmlFor="from">From</label>
-          <input
-            id="from"
-            type="text"
-            name="from"
-            value={from}
-            onChange={(e) => setFrom(e.target.value)}
-            placeholder="From index"
-          />
-          <label htmlFor="to">To</label>
-          <input
-            id="to"
-            type="text"
-            name="to"
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-            placeholder="To index"
-          />
-          <button onClick={() => moveUser(Number(from), Number(to))}>
-            Move
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

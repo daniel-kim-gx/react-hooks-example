@@ -4,10 +4,11 @@ import { Router, Link } from "@reach/router";
 import { useFetch } from "../hooks/useFetch";
 import axios from "axios";
 import { useSnackBar } from "../hooks/useSnackBar";
+import { PageLayout } from "../components/PageLayout";
 
 export function AsyncPage() {
   return (
-    <div>
+    <PageLayout>
       <div
         css={css`
           & > a {
@@ -23,7 +24,7 @@ export function AsyncPage() {
         <Example1 default path="/" />
         <Example2 path="/2" />
       </Router>
-    </div>
+    </PageLayout>
   );
 }
 
@@ -76,9 +77,7 @@ function Example2() {
 
   const handleKeyDown = (e) => {
     const key = e.key;
-
     if (key !== "Enter") return;
-
     fetchUserNameRef.current = userName;
     userReload();
     addressReload();
@@ -87,7 +86,6 @@ function Example2() {
 
   useEffect(() => {
     if (!userFetchError) return;
-
     toast(`Username ${fetchUserNameRef.current} fetch failed.`, {
       variant: "danger",
     });
@@ -95,7 +93,6 @@ function Example2() {
 
   useEffect(() => {
     if (!addressFetchError) return;
-
     toast(
       <span>
         Address related to username <strong>{fetchUserNameRef.current}</strong>{" "}

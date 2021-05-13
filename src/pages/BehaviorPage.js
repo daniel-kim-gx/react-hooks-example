@@ -2,13 +2,14 @@ import { useState, useLayoutEffect, useEffect } from "react";
 import { Router, Link } from "@reach/router";
 import { css } from "@emotion/react";
 import { Timer } from "../components/Timer";
+import { PageLayout } from "../components/PageLayout";
 
 const generateRandomValue = () =>
   Math.floor(Math.pow(10, 10) + Math.random() * Math.pow(10, 10));
 
 export function BehaviorPage() {
   return (
-    <div>
+    <PageLayout>
       <div
         css={css`
           & > a {
@@ -24,7 +25,7 @@ export function BehaviorPage() {
         <Example1 default path="/" />
         <Example2 path="/2" />
       </Router>
-    </div>
+    </PageLayout>
   );
 }
 
@@ -57,19 +58,23 @@ function Example2() {
   }, []);
 
   useEffect(() => {
-    console.log("[UseEffectComponent] re-rendering... ");
+    console.log("[UseEffectComponent] re-rendering...1");
   });
 
   useEffect(() => {
+    console.log("[UseEffectComponent] re-rendering...2");
+  });
+
+  useEffect(() => {
+    for (let i = 0; i < 10e7; ++i) {}
     if (value1 === 0) {
-      setValue1(() => generateRandomValue());
       setValue1(() => generateRandomValue());
     }
   }, [value1]);
 
   useLayoutEffect(() => {
+    for (let i = 0; i < 10e7; ++i) {}
     if (value2 === 0) {
-      setValue2(() => generateRandomValue());
       setValue2(() => generateRandomValue());
     }
   }, [value2]);
@@ -92,7 +97,6 @@ function Example2() {
           font-size: 4rem;
           width: 100%;
           display: flex;
-          justify-content: space-between;
         `}
       >
         value1:
@@ -106,7 +110,6 @@ function Example2() {
           font-size: 4rem;
           width: 100%;
           display: flex;
-          justify-content: space-between;
         `}
       >
         value2:

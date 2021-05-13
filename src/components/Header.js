@@ -27,15 +27,23 @@ export function Header() {
         padding: 20px 0;
 
         display: flex;
-        flex-direction: column;
+        justify-content: center;
       `}
     >
-      <StyledLink to="/playground">playground</StyledLink>
-      <StyledLink to="/data">data</StyledLink>
-      <StyledLink to="/behavior">behavior</StyledLink>
-      <StyledLink to="/complex-data">complex</StyledLink>
-      <StyledLink to="/optimize">optimization</StyledLink>
-      <StyledLink to="/async">async</StyledLink>
+      <div
+        css={css`
+          width: 800px;
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <StyledLink to="/playground">playground</StyledLink>
+        <StyledLink to="/data">data</StyledLink>
+        <StyledLink to="/behavior">behavior</StyledLink>
+        <StyledLink to="/complex-data">complex</StyledLink>
+        <StyledLink to="/optimize">optimization</StyledLink>
+        <StyledLink to="/async">async</StyledLink>
+      </div>
     </header>
   );
 }
